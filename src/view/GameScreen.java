@@ -66,7 +66,7 @@ public class GameScreen extends JFrame {
 				switch(e.getKeyCode()) {
 				
 				case KeyEvent.VK_UP: { //Key code for UP: 38
-					panel.setPrevKeyNum(panel.getKeyPressedNum());
+					panel.setPrevKeyNum(panel.getKeyPressedNum()); //memorizing previous position
 					panel.setKeyPressedNum(38); //the direction snake is headed in
 					break;
 				}

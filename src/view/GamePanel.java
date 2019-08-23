@@ -18,7 +18,13 @@ public class GamePanel extends JPanel {
 	private GrownSnake grownSnake = new GrownSnake(snakeHead); //whole snake
 	
 	private int keyPressedNum = 0; //initially no keys were pressed
-	private int prevKeyNum = 0; //initially no previous was pressed
+	private int prevKeyNum = 0; //initially no previous keys were pressed
+	
+	//last positions of the snake's head before it took a turn
+	private int headXPos;
+	private int headYPos;
+	
+	
 	
 	protected void paintComponent(Graphics g) {
 		
@@ -28,13 +34,9 @@ public class GamePanel extends JPanel {
 		graphicSettings.setColor(Color.BLACK);
 		graphicSettings.fillRect(0,0, GameScreen.windowWidth, GameScreen.windowHeight);
 		
-		//coloring and drawing Snake's head
-		graphicSettings.setPaint(Color.WHITE);
-		graphicSettings.fill(snakeHead);
+		drawSnake(graphicSettings);
 		
-		//coloring and drawing Food
-		graphicSettings.setPaint(Color.RED);
-		graphicSettings.fill(food);
+		drawFood(graphicSettings);
 		
 		//if the player tried to move the snake in the opposite direction
 		if(this.keyPressedNum + GameScreen.movementSpeed == this.prevKeyNum ||
@@ -45,16 +47,48 @@ public class GamePanel extends JPanel {
 		
 		moveSnake();
 		
+		detectCollision(graphicSettings);
 		
 		
+	}
 	
+	
+	public void drawSnake(Graphics2D graphicSettings) {
+		
+		//coloring and drawing the Snake
+		for(int i = 0; i < grownSnake.getSnakeList().size(); i++) {
+			graphicSettings.setPaint(Color.WHITE);
+			
+			if(i == 0) {
+				graphicSettings.fill(grownSnake.getSnakeList().get(i)); //head is colored
+			} else {
+				graphicSettings.draw(grownSnake.getSnakeList().get(i)); //body is not
+			}
+			
+			graphicSettings.draw(grownSnake.getSnakeList().get(i));
+		}		
+		
+	}
+	
+	public void drawFood(Graphics2D graphicSettings) {
+		
+		//coloring and drawing Food
+		graphicSettings.setPaint(Color.RED);
+		graphicSettings.fill(food);
+		
+	}
+	
+	
+	public void detectCollision(Graphics2D graphicSettings) {
+		
 		//detecting collision between snake and food
 		if(snakeHead.getBounds().intersects(food.getBounds())) {
+			
 			food.changePosition(); //food position changes every time the snake eats it
 			
-			//TODO: increase snake size
-			//SnakeComponent body = new SnakeComponent();
-			//grownSnake.increaseLength(body, keyHeldNum);
+			//increasing snake length
+			SnakeComponent newComponent = new SnakeComponent();
+			grownSnake.increaseLength(newComponent, keyPressedNum);
 			
 		}
 		
@@ -65,22 +99,33 @@ public class GamePanel extends JPanel {
 		//adding movement to snake
 		switch(keyPressedNum) {
 			case 40: { //DOWN
-				snakeHead.increaseYPos();
+				//snakeHead.increaseYPos();
+				for(int i = 0; i < grownSnake.getSnakeList().size(); i++) {
+					grownSnake.getSnakeList().get(i).increaseYPos();
+				}
 				break;
 			}
 		
 			case 38: { //UP
-				snakeHead.decreaseYPos();
+				//snakeHead.decreaseYPos();
+				for(int i = 0; i < grownSnake.getSnakeList().size(); i++) {
+					grownSnake.getSnakeList().get(i).decreaseYPos();
+				}
 				break;
 			}
 		
 			case 39: { //RIGHT
-				snakeHead.increaseXPos();
+				//snakeHead.increaseXPos();
+				for(int i = 0; i < grownSnake.getSnakeList().size(); i++) {
+					grownSnake.getSnakeList().get(i).increaseXPos();
+				}
 				break;
 			}
 		
 			case 37: { //LEFT
-				snakeHead.decreaseXPos();
+				for(int i = 0; i < grownSnake.getSnakeList().size(); i++) {
+					grownSnake.getSnakeList().get(i).decreaseXPos();
+				}
 				break;
 			}
 		}
