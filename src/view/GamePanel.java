@@ -17,9 +17,8 @@ public class GamePanel extends JPanel {
 	private Food food;
 	private GrownSnake grownSnake = new GrownSnake(snakeHead); //whole snake
 	
-	
-	private int keyHeldNum;
-	private int oppDirectionKey;
+	private int keyPressedNum = 0; //initially no keys were pressed
+	private int prevKeyNum = 0; //initially no previous was pressed
 	
 	protected void paintComponent(Graphics g) {
 		
@@ -37,10 +36,34 @@ public class GamePanel extends JPanel {
 		graphicSettings.setPaint(Color.RED);
 		graphicSettings.fill(food);
 		
-		//oppDirectionKey = getOppositeDirection(keyHeldNum);
+		//if the player tried to move the snake in the opposite direction
+		if(this.keyPressedNum + GameScreen.movementSpeed == this.prevKeyNum ||
+				this.keyPressedNum - GameScreen.movementSpeed == this.prevKeyNum) {
+			
+			this.keyPressedNum = this.prevKeyNum; //the snake will remain on the current direction
+		}
+		
+		moveSnake();
+		
+		
+		
+	
+		//detecting collision between snake and food
+		if(snakeHead.getBounds().intersects(food.getBounds())) {
+			food.changePosition(); //food position changes every time the snake eats it
+			
+			//TODO: increase snake size
+			//SnakeComponent body = new SnakeComponent();
+			//grownSnake.increaseLength(body, keyHeldNum);
+			
+		}
+		
+	}
+	
+	public void moveSnake() {
 		
 		//adding movement to snake
-		switch(keyHeldNum) {
+		switch(keyPressedNum) {
 			case 40: { //DOWN
 				snakeHead.increaseYPos();
 				break;
@@ -62,45 +85,11 @@ public class GamePanel extends JPanel {
 			}
 		}
 		
-	
-		//detecting collision between snake and food
-		if(snakeHead.getBounds().intersects(food.getBounds())) {
-			food.changePosition(); //food position changes every time the snake eats it
-			
-			//TODO: increase snake size
-			//SnakeComponent body = new SnakeComponent();
-			//grownSnake.increaseLength(body, keyHeldNum);
-			
-		}
-		
-	}
-	
-	public int getOppositeDirection(int keyNum) {
-		
-		switch(keyNum) {
-		case 40:
-			return 38;
-		case 38:
-			return 40;
-		case 37:
-			return 39;
-		case 39:
-			return 37;
-		default:
-			return 0;
-		}
 	}
 	
 	
 	/* GETTERS AND SETTERS */
 
-	public int getKeyHeldNum() {
-		return keyHeldNum;
-	}
-
-	public void setKeyHeldNum(int keyHeldNum) {
-		this.keyHeldNum = keyHeldNum;
-	}
 
 	public SnakeComponent getSnakeHead() {
 		return snakeHead;
@@ -124,6 +113,22 @@ public class GamePanel extends JPanel {
 
 	public void setGrownSnake(GrownSnake grownSnake) {
 		this.grownSnake = grownSnake;
+	}
+
+	public int getKeyPressedNum() {
+		return keyPressedNum;
+	}
+
+	public void setKeyPressedNum(int keyPressedNum) {
+		this.keyPressedNum = keyPressedNum;
+	}
+
+	public int getPrevKeyNum() {
+		return prevKeyNum;
+	}
+
+	public void setPrevKeyNum(int prevKeyNum) {
+		this.prevKeyNum = prevKeyNum;
 	}
 
 

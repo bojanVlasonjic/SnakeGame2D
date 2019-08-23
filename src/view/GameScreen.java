@@ -19,6 +19,7 @@ public class GameScreen extends JFrame {
 	public static int windowWidth = 400;
 	
 	public static int componentLength = 10; //food and snake size
+	public static int movementSpeed = 2;
 	
 	
 	public GameScreen() {
@@ -65,22 +66,26 @@ public class GameScreen extends JFrame {
 				switch(e.getKeyCode()) {
 				
 				case KeyEvent.VK_UP: { //Key code for UP: 38
-					panel.setKeyHeldNum(38); //the direction snake is headed in
+					panel.setPrevKeyNum(panel.getKeyPressedNum());
+					panel.setKeyPressedNum(38); //the direction snake is headed in
 					break;
 				}
 				
 				case KeyEvent.VK_DOWN: { //Key code for DOWN: 40
-					panel.setKeyHeldNum(40); 
+					panel.setPrevKeyNum(panel.getKeyPressedNum());
+					panel.setKeyPressedNum(40); 
 					break;
 				}
 				
 				case KeyEvent.VK_LEFT: { //Key code for LEFT: 37
-					panel.setKeyHeldNum(37);
+					panel.setPrevKeyNum(panel.getKeyPressedNum());
+					panel.setKeyPressedNum(37);
 					break;
 				}
 				
 				case KeyEvent.VK_RIGHT: { //Key code for RIGHT: 39
-					panel.setKeyHeldNum(39);
+					panel.setPrevKeyNum(panel.getKeyPressedNum());
+					panel.setKeyPressedNum(39);
 					break;
 				}
 				

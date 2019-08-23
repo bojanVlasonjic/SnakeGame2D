@@ -13,7 +13,7 @@ public class SnakeComponent extends Rectangle {
 	private int sWidth; //calculated distance using xPoints and yPoints
 	private int sHeight; //calculated distance using xPoints and yPoints
 	
-	private double speed = 2.0;
+	private double speed = GameScreen.movementSpeed;
 	
 	public SnakeComponent(int xPos, int yPos, int width, int height) {
 		
