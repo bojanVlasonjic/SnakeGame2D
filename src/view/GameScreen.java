@@ -1,12 +1,15 @@
 package view;
 
 import java.awt.event.KeyEvent;
-
 import java.awt.event.KeyListener;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 import javax.swing.JFrame;
+
+import model.Food;
+import model.GrownSnake;
+import model.SnakeComponent;
 
 
 @SuppressWarnings("serial")
@@ -15,6 +18,8 @@ public class GameScreen extends JFrame {
 	public static int windowHeight = 400;
 	public static int windowWidth = 400;
 	
+	public static int componentLength = 10; //food and snake size
+	
 	
 	public GameScreen() {
 		
@@ -22,17 +27,30 @@ public class GameScreen extends JFrame {
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
-		
-		//dodajem panel i komponente
 		GamePanel panel = new GamePanel();
+		panel = initPanelComponents(panel);
 		this.add(panel);
 		
 		addListeners(panel); //adding purpose to arrow keys for movement
 		
+		//repainting window every 20ms
 		ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(5);
 		executor.scheduleAtFixedRate(new RepaintScreen(this), 0L, 20L, TimeUnit.MILLISECONDS);
 		
 		this.setVisible(true);
+	}
+	
+	
+	public GamePanel initPanelComponents(GamePanel panel) {
+		
+		SnakeComponent snakeHead = new SnakeComponent(60, 60, componentLength, componentLength);
+		panel.setSnakeHead(snakeHead);
+		
+		panel.setFood(Food.getInstance());
+		panel.setGrownSnake(new GrownSnake(snakeHead));
+		
+		return panel;
+		
 	}
 	
 	public void addListeners(GamePanel panel) {

@@ -1,31 +1,28 @@
 package model;
 
-import java.awt.Polygon;
 import java.awt.Rectangle;
 
 import view.GameScreen;
 
 @SuppressWarnings("serial")
-public class Food extends Polygon {
-	
-	//private Snake snake = Snake.getInstance(); //food has same points as snakes
+public class Food extends Rectangle {
 	
 	private int xPos;
 	private int yPos;
 	
-	private static int[] xPoints = {40, 50, 50, 40};
-	private static int[] yPoints = {40, 40, 50, 50};
-	
 	//same width and height as the Snake
-	private int fWidth = 10;
-	private int fHeight = 10;
+	private int fWidth;
+	private int fHeight;
 	
 	/* SINGLETON */
 	private static Food instance = null;
 	
 	private Food() {
 		
-		super(xPoints, yPoints, 4); //the food is the same size as the snake
+		//fixed starting position, width and height
+		super(GameScreen.windowWidth/2, GameScreen.windowHeight/2,
+				GameScreen.componentLength, GameScreen.componentLength); 
+		
 	}
 	
 	public static Food getInstance() {
@@ -38,42 +35,19 @@ public class Food extends Polygon {
 		
 	}
 	
-	/* COLLISION DETECTION METHODS */
-	
-	/*Method draws a rectangle around a snake, and by comparing with the rectangle around food,
-	 *I determine whether or not it has come to a collision
-	 *return: Rectangle around food */
-	public Rectangle getBounds() {
-		return new Rectangle(super.xpoints[0], super.ypoints[0], fWidth, fHeight);
-	}
 	
 	/* MOVEMENT METHOD */
 	
 	//changes position of the food on screen
 	public void changePosition() {
 		
-		int maxNum = GameScreen.windowWidth - 40; //so the food wouldn't go to the corner of the window
+		int maxNum = GameScreen.windowWidth - 40; //maximum x or y position of food so that it would not escape the window
 		
-		//generated random based on which I draw food on another place on the screen
+		//next position of the food is randomly generated
 		int randNum = (int) (Math.random() * maxNum + 1); //returns num between 20 and maxNum(380)
 		
-		//changing xpoints of food
-		for(int i = 0; i < super.xpoints.length; i++) {
-			if(i == 0 || i == super.xpoints.length - 1) { //first and last xpoints are lower in value
-				super.xpoints[i] = randNum;
-			} else {
-				super.xpoints[i] = randNum + fWidth; //second and third xpoints are higher in value by 10
-			}
-		}
-		
-		//changing yPoints of food
-		for(int i = 0; i < super.ypoints.length; i++) {
-			if(i < super.ypoints.length / 2) {
-				super.ypoints[i] = randNum; //first two ypoints are lower in value
-			} else {
-				super.ypoints[i] = randNum + fHeight; //last two ypoints are higher in value by 10
-			}
-		}
+		super.x = randNum;
+		super.y = randNum;
 	}
 	
 	
@@ -94,6 +68,22 @@ public class Food extends Polygon {
 	public void setyPos(int yPos) {
 		this.yPos = yPos;
 	
+	}
+
+	public int getfWidth() {
+		return fWidth;
+	}
+
+	public void setfWidth(int fWidth) {
+		this.fWidth = fWidth;
+	}
+
+	public int getfHeight() {
+		return fHeight;
+	}
+
+	public void setfHeight(int fHeight) {
+		this.fHeight = fHeight;
 	}
 	
 	

@@ -7,15 +7,15 @@ import java.awt.Graphics2D;
 import javax.swing.JPanel;
 
 import model.Food;
-import model.GrowingSnake;
-import model.Snake;
+import model.GrownSnake;
+import model.SnakeComponent;
 
 @SuppressWarnings("serial")
 public class GamePanel extends JPanel {
 	
-	private Snake snakeHead = new Snake(); //head of the snake
-	private Food food = Food.getInstance();
-	private GrowingSnake grownSnake = new GrowingSnake(snakeHead); //whole snake
+	private SnakeComponent snakeHead; //head of the snake
+	private Food food;
+	private GrownSnake grownSnake = new GrownSnake(snakeHead); //whole snake
 	
 	
 	private int keyHeldNum;
@@ -68,8 +68,8 @@ public class GamePanel extends JPanel {
 			food.changePosition(); //food position changes every time the snake eats it
 			
 			//TODO: increase snake size
-			Snake body = new Snake();
-			grownSnake.increaseLength(body, keyHeldNum);
+			//SnakeComponent body = new SnakeComponent();
+			//grownSnake.increaseLength(body, keyHeldNum);
 			
 		}
 		
@@ -100,6 +100,30 @@ public class GamePanel extends JPanel {
 
 	public void setKeyHeldNum(int keyHeldNum) {
 		this.keyHeldNum = keyHeldNum;
+	}
+
+	public SnakeComponent getSnakeHead() {
+		return snakeHead;
+	}
+
+	public void setSnakeHead(SnakeComponent snakeHead) {
+		this.snakeHead = snakeHead;
+	}
+
+	public Food getFood() {
+		return food;
+	}
+
+	public void setFood(Food food) {
+		this.food = food;
+	}
+
+	public GrownSnake getGrownSnake() {
+		return grownSnake;
+	}
+
+	public void setGrownSnake(GrownSnake grownSnake) {
+		this.grownSnake = grownSnake;
 	}
 
 
