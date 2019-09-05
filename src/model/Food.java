@@ -38,13 +38,11 @@ public class Food extends Rectangle {
 	//changes position of the food on screen
 	public void changePosition() {
 		
-		int maxNum = GameScreen.windowWidth - 40; //maximum x or y position of food so that it would not escape the window
+		//next position of the food is randomly generated 
+		int randNum = (int) ( Math.random() * ((GameScreen.windowWidth/GameScreen.componentLength) - 5) ); //returns num between 10 and window width-10
 		
-		//next position of the food is randomly generated
-		int randNum = (int) (Math.random() * maxNum + 1); //returns num between 20 and maxNum(380)
-		
-		super.x = randNum;
-		super.y = randNum;
+		super.x = randNum*10;
+		super.y = randNum*10;
 		
 		System.out.println(randNum);
 	}

@@ -19,7 +19,7 @@ public class GameScreen extends JFrame {
 	public static int windowWidth = 400;
 	
 	public static int componentLength = 10; //food and snake size
-	public static int movementSpeed = 10;
+	//public static int movementSpeed = 10;
 	
 	
 	public GameScreen() {

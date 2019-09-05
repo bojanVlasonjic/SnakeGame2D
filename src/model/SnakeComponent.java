@@ -12,7 +12,7 @@ public class SnakeComponent extends Rectangle {
 	
 	private int direction; //the direction the component is headed in (40 = down)
 	
-	private double speed = GameScreen.movementSpeed;
+	private double speed = GameScreen.componentLength;
 	
 	
 	public SnakeComponent() {
