@@ -19,7 +19,7 @@ public class GameScreen extends JFrame {
 	public static int windowWidth = 400;
 	
 	public static int componentLength = 10; //food and snake size
-	public static int movementSpeed = 2;
+	public static int movementSpeed = 10;
 	
 	
 	public GameScreen() {
@@ -36,7 +36,7 @@ public class GameScreen extends JFrame {
 		
 		//repainting window every 20ms
 		ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(5);
-		executor.scheduleAtFixedRate(new RepaintScreen(this), 0L, 20L, TimeUnit.MILLISECONDS);
+		executor.scheduleAtFixedRate(new RepaintScreen(this), 0L, 60L, TimeUnit.MILLISECONDS);
 		
 		this.setVisible(true);
 	}
@@ -45,7 +45,6 @@ public class GameScreen extends JFrame {
 	public GamePanel initPanelComponents(GamePanel panel) {
 		
 		SnakeComponent snakeHead = new SnakeComponent(60, 60, componentLength, componentLength);
-		panel.setSnakeHead(snakeHead);
 		
 		panel.setFood(Food.getInstance());
 		panel.setGrownSnake(new GrownSnake(snakeHead));

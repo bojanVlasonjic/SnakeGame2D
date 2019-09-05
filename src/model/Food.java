@@ -7,9 +7,6 @@ import view.GameScreen;
 @SuppressWarnings("serial")
 public class Food extends Rectangle {
 	
-	private int xPos;
-	private int yPos;
-	
 	//same width and height as the Snake
 	private int fWidth;
 	private int fHeight;
@@ -48,28 +45,14 @@ public class Food extends Rectangle {
 		
 		super.x = randNum;
 		super.y = randNum;
+		
+		System.out.println(randNum);
 	}
 	
 	
 	/* GETTERS AND SETTERS */
 
-	public int getxPos() {
-		return xPos;
-	}
-
-	public void setxPos(int xPos) {
-		this.xPos = xPos;
-	}
-
-	public int getyPos() {
-		return yPos;
-	}
-
-	public void setyPos(int yPos) {
-		this.yPos = yPos;
 	
-	}
-
 	public int getfWidth() {
 		return fWidth;
 	}

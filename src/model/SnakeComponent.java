@@ -7,22 +7,23 @@ import view.GameScreen;
 @SuppressWarnings("serial")
 public class SnakeComponent extends Rectangle {
 	
-	private int xPos;
-	private int yPos;
-	
 	private int sWidth; 
 	private int sHeight; 
+	
+	private int direction; //the direction the component is headed in (40 = down)
 	
 	private double speed = GameScreen.movementSpeed;
 	
 	
 	public SnakeComponent() {
 		
+		this.direction = 0; //initially not moving
 	}
 	
 	public SnakeComponent(int xPos, int yPos, int width, int height) {
 		
 		super(xPos, yPos, width, height);
+		this.direction = 0; //initially not moving
 	}
 	
 	
@@ -83,22 +84,7 @@ public class SnakeComponent extends Rectangle {
 	
 	/* Getters and setters */
 
-	public int getxPos() {
-		return xPos;
-	}
-
-	public void setxPos(int xPos) {
-		this.xPos = xPos;
-	}
-
-	public int getyPos() {
-		return yPos;
-	}
-
-	public void setyPos(int yPos) {
-		this.yPos = yPos;
-	}
-
+	
 	public int getsWidth() {
 		return sWidth;
 	}
@@ -121,6 +107,14 @@ public class SnakeComponent extends Rectangle {
 
 	public void setSpeed(double speed) {
 		this.speed = speed;
+	}
+
+	public int getDirection() {
+		return direction;
+	}
+
+	public void setDirection(int direction) {
+		this.direction = direction;
 	}
 
 

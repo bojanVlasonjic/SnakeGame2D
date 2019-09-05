@@ -13,13 +13,16 @@ public class GrownSnake {
 		snakeList.add(head); //head is always at index 0
 	}
 	
-	public void increaseLength(SnakeComponent snakeComp, int keyPressed) {
+	public void increaseLength(SnakeComponent newComponent, int keyPressed) {
 		
-		snakeComp.width = GameScreen.componentLength;
-		snakeComp.height = GameScreen.componentLength;
+		newComponent.width = GameScreen.componentLength;
+		newComponent.height = GameScreen.componentLength;
 		
 		//calculating the position of the new rectangle and adding it to the list
-		snakeList.add(calculateNewComponentPosition(snakeComp, keyPressed));
+		snakeList.add(calculateNewComponentPosition(newComponent, keyPressed));
+		
+		//the new component will be going in the same direction as it's predecessor
+		newComponent.setDirection(snakeList.get(snakeList.size()-2).getDirection());
 	}
 	
 	/** Inserting new rectangle behind the last one based on snake's direction 
