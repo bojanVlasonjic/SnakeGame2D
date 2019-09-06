@@ -11,6 +11,8 @@ public class SnakeComponent extends Rectangle {
 	private int sHeight; 
 	
 	private int direction; //the direction the component is headed in (40 = down)
+	private Direction turnDirection; //coordinates and new direction when snake turns
+	//TODO: lista direkcija
 	
 	private double speed = GameScreen.componentLength;
 	
@@ -18,12 +20,14 @@ public class SnakeComponent extends Rectangle {
 	public SnakeComponent() {
 		
 		this.direction = 0; //initially not moving
+		this.turnDirection = new Direction();
 	}
 	
 	public SnakeComponent(int xPos, int yPos, int width, int height) {
 		
 		super(xPos, yPos, width, height);
 		this.direction = 0; //initially not moving
+		this.turnDirection = new Direction();
 	}
 	
 	
@@ -60,7 +64,7 @@ public class SnakeComponent extends Rectangle {
 	public void increaseXPos() {
 		
 		if(this.x > GameScreen.windowWidth) {
-			this.x -=GameScreen.windowWidth;//if the snake escapes out of the window it spawns on the other side
+			this.x -= GameScreen.windowWidth;//if the snake escapes out of the window it spawns on the other side
 			
 		} else {
 			this.x += this.speed;
@@ -115,6 +119,14 @@ public class SnakeComponent extends Rectangle {
 
 	public void setDirection(int direction) {
 		this.direction = direction;
+	}
+
+	public Direction getTurnDirection() {
+		return turnDirection;
+	}
+
+	public void setTurnDirection(Direction turnDirection) {
+		this.turnDirection = turnDirection;
 	}
 
 

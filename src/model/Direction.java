@@ -10,6 +10,9 @@ public class Direction {
 	
 	public Direction() {
 		
+		this.keyNum = -1;
+		this.turnXPos = -1;
+		this.turnYPos = -1;
 	}
 
 	public Direction(int keyNum, double turnXPos, double turnYPos) {

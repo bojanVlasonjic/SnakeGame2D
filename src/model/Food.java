@@ -43,8 +43,7 @@ public class Food extends Rectangle {
 		
 		super.x = randNum*10;
 		super.y = randNum*10;
-		
-		System.out.println(randNum);
+
 	}
 	
 	
