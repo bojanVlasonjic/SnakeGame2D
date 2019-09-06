@@ -1,6 +1,8 @@
 package model;
 
 import java.awt.Rectangle;
+import java.util.ArrayList;
+import java.util.List;
 
 import view.GameScreen;
 
@@ -11,8 +13,8 @@ public class SnakeComponent extends Rectangle {
 	private int sHeight; 
 	
 	private int direction; //the direction the component is headed in (40 = down)
-	private Direction turnDirection; //coordinates and new direction when snake turns
-	//TODO: lista direkcija
+	//private Direction turnDirection; //coordinates and new direction when snake turns
+	private List<Direction> turnDirections;
 	
 	private double speed = GameScreen.componentLength;
 	
@@ -20,14 +22,14 @@ public class SnakeComponent extends Rectangle {
 	public SnakeComponent() {
 		
 		this.direction = 0; //initially not moving
-		this.turnDirection = new Direction();
+		this.turnDirections = new ArrayList<Direction>();
 	}
 	
 	public SnakeComponent(int xPos, int yPos, int width, int height) {
 		
 		super(xPos, yPos, width, height);
 		this.direction = 0; //initially not moving
-		this.turnDirection = new Direction();
+		this.turnDirections = new ArrayList<Direction>();
 	}
 	
 	
@@ -121,13 +123,15 @@ public class SnakeComponent extends Rectangle {
 		this.direction = direction;
 	}
 
-	public Direction getTurnDirection() {
-		return turnDirection;
+	public List<Direction> getTurnDirections() {
+		return turnDirections;
 	}
 
-	public void setTurnDirection(Direction turnDirection) {
-		this.turnDirection = turnDirection;
+	public void setTurnDirections(List<Direction> turnDirections) {
+		this.turnDirections = turnDirections;
 	}
+
+	
 
 
 	

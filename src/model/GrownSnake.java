@@ -13,27 +13,32 @@ public class GrownSnake {
 		snakeList.add(head); //head is always at index 0
 	}
 	
-	public void increaseLength(SnakeComponent newComponent, int keyPressed) {
+	public void increaseLength(SnakeComponent newComponent) {
 		
 		newComponent.width = GameScreen.componentLength;
 		newComponent.height = GameScreen.componentLength;
 				
 		//calculating the position of the new rectangle and adding it to the list
-		snakeList.add(calculateNewComponentPosition(newComponent, keyPressed));
+		snakeList.add(calculateNewComponentPosition(newComponent, snakeList.get(snakeList.size()-1).getDirection()));
 		
 		//the new component will be going in the same direction as it's predecessor
 		snakeList.get(snakeList.size()-1).setDirection(snakeList.get(snakeList.size()-2).getDirection());
-		snakeList.get(snakeList.size()-1).setTurnDirection(snakeList.get(snakeList.size()-2).getTurnDirection());
-
+		
+		//TODO: ovde jede govna
+		if(snakeList.get(snakeList.size()-2).getTurnDirections().size() > 0) {
+			//snakeList.get(snakeList.size()-1).getTurnDirections().add(snakeList.get(snakeList.size()-2).getTurnDirections().get(0));
+		
+		}
+		
 	}
 	
 	/** Inserting new rectangle behind the last one based on snake's direction 
 	 * @param newComp - new rectangle added to the snake
-	 * @param keyPressed - the direction the snake is headed
+	 * @param tailDirection - the direction the tail is headed in
 	 * @return rectangle object with it's calculated position */
-	public SnakeComponent calculateNewComponentPosition(SnakeComponent newComp, int keyPressed) {
+	public SnakeComponent calculateNewComponentPosition(SnakeComponent newComp, int tailDirection) {
 		
-		switch(keyPressed) {
+		switch(tailDirection) {
 		
 		case 40: { //DOWN
 			newComp.x = snakeList.get(snakeList.size() - 1).x;
