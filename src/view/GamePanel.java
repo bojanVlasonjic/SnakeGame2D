@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.Color;
+
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
@@ -14,16 +15,11 @@ import model.SnakeComponent;
 @SuppressWarnings("serial")
 public class GamePanel extends JPanel {
 	
-	//private SnakeComponent snakeHead; //head of the snake
 	private Food food;
 	private GrownSnake grownSnake; //whole snake
 	
 	private int keyPressedNum = 0; //initially no keys were pressed
 	private int prevKeyNum = 0; //initially no previous keys were pressed
-	
-	private Direction turnDirection = new Direction();
-	
-	
 	
 	
 	protected void paintComponent(Graphics g) {
@@ -32,7 +28,7 @@ public class GamePanel extends JPanel {
 		
 		//coloring background
 		graphicSettings.setColor(Color.BLACK);
-		graphicSettings.fillRect(0,0, GameScreen.windowWidth, GameScreen.windowHeight);
+		graphicSettings.fillRect(0, 0, GameScreen.windowWidth, GameScreen.windowHeight);
 		
 		
 		drawSnake(graphicSettings);
@@ -88,8 +84,7 @@ public class GamePanel extends JPanel {
 			food.changePosition(); //food position changes every time the snake eats it
 			
 			//increasing snake length
-			SnakeComponent newComponent = new SnakeComponent();
-			grownSnake.increaseLength(newComponent, grownSnake.getSnakeList().get(0).getDirection());
+			grownSnake.increaseLength(new SnakeComponent());
 			
 		}
 		
@@ -104,56 +99,56 @@ public class GamePanel extends JPanel {
 		
 		//if the direction changed
 		if(grownSnake.getSnakeList().get(0).getDirection() != this.keyPressedNum) {
+			
 			grownSnake.getSnakeList().get(0).setDirection(this.keyPressedNum);
-			turnDirection.setTurnXPos(grownSnake.getSnakeList().get(0).getX());
-			turnDirection.setTurnYPos(grownSnake.getSnakeList().get(0).getY());
-			turnDirection.setKeyNum(this.keyPressedNum);
+			//grownSnake.getSnakeList().get(0).getTurnDirections().setKeyNum(this.keyPressedNum);
+			
+			
+			//TODO: dodaj svima u listu direkcije za skretanje
+			for(int i = 1; i < grownSnake.getSnakeList().size(); i++) {
+				grownSnake.getSnakeList().get(i).getTurnDirections().add(new Direction(this.keyPressedNum,
+						grownSnake.getSnakeList().get(0).getX(), grownSnake.getSnakeList().get(0).getY()));
+				
+			}
+			
+			
+			
+			/*
+			//memorize the turn to the head's successor 
+			if(grownSnake.getSnakeList().size() > 1) {
+				grownSnake.getSnakeList().get(1).getTurnDirection().setTurnXPos(grownSnake.getSnakeList().get(0).getX());
+				grownSnake.getSnakeList().get(1).getTurnDirection().setTurnYPos(grownSnake.getSnakeList().get(0).getY());
+				
+				grownSnake.getSnakeList().get(1).getTurnDirection().setKeyNum(this.keyPressedNum);
+			}*/
+			
 		}
 		
-			
-			//memorizing turn position of the head, and the new direction
-			//Direction direction = new Direction(this.keyPressedNum, grownSnake.getSnakeList().get(0).getX(),
-				//	grownSnake.getSnakeList().get(0).getY());
-			
-			//directions.add(direction);
-		
-		
-		/*
-		if(directions.size() > 0 && grownSnake.getSnakeList().size() > 1) {
-			
-			System.out.println(grownSnake.getSnakeList().get(directions.get(0).getNextRect()).getX()
-					+ " " + directions.get(0).getTurnXPos());
-			
-			if(grownSnake.getSnakeList().get(directions.get(0).getNextRect()).getX() == directions.get(0).getTurnXPos()
-					&& grownSnake.getSnakeList().get(directions.get(0).getNextRect()).getY() == directions.get(0).getTurnYPos()) {
-				grownSnake.getSnakeList().get(directions.get(0).getNextRect()).setDirection(directions.get(0).getKeyNum());
-				directions.get(0).setNextRect(directions.get(0).getNextRect() + 1);
-			}
-		}*/
 		
 		//iterate through all components and move them in the right direction
 		for(int i = 0; i < grownSnake.getSnakeList().size(); i++) {
 			
-			if(i > 0 && grownSnake.getSnakeList().get(i).getX() == turnDirection.getTurnXPos()
-					&& grownSnake.getSnakeList().get(i).getY() == turnDirection.getTurnYPos()) {
-				grownSnake.getSnakeList().get(i).setDirection(turnDirection.getKeyNum());
+			//if the rectangle reached the turn position
+			if(i > 0 && grownSnake.getSnakeList().get(i).getTurnDirections().size() > 0
+					&& grownSnake.getSnakeList().get(i).getTurnDirections().get(0).getTurnXPos() == grownSnake.getSnakeList().get(i).getX()
+					&& grownSnake.getSnakeList().get(i).getTurnDirections().get(0).getTurnYPos() == grownSnake.getSnakeList().get(i).getY()) {
+		
+				//update it's current direction
+				grownSnake.getSnakeList().get(i).setDirection(grownSnake.getSnakeList().get(i).getTurnDirections().get(0).getKeyNum());
+				
+				grownSnake.getSnakeList().get(i).getTurnDirections().remove(0);
+				//TODO: u tom slucaju ovo ne treba
+				/*
+				//shift the turn to the next rect
+				if(i != grownSnake.getSnakeList().size() - 1) {
+					grownSnake.getSnakeList().get(i+1).setTurnDirection(grownSnake.getSnakeList().get(i).getTurnDirection());
+				}*/
+				
 			}
+			
 			moveSnakeComponent(grownSnake.getSnakeList().get(i));
-			//System.out.print(grownSnake.getSnakeList().get(i).x + "," + grownSnake.getSnakeList().get(i).y + "    ");
 			
 		}
-		
-		//System.out.println();
-		
-		/*
-		if(directions.size() > 0) {
-			//if all rectangles have turned, the direction can be removed
-			if(directions.get(0).getNumOfRects() == directions.get(0).getNextRect()) {
-				directions.remove(0);
-			}
-		}*/
-		
-		
 		
 	}
 	

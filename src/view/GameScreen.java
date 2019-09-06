@@ -15,6 +15,9 @@ import model.SnakeComponent;
 @SuppressWarnings("serial")
 public class GameScreen extends JFrame {
 	
+	
+	public static final Long repaintTimeRate = 60L;
+	
 	public static int windowHeight = 400;
 	public static int windowWidth = 400;
 	
@@ -34,9 +37,9 @@ public class GameScreen extends JFrame {
 		
 		addListeners(panel); //adding purpose to arrow keys for movement
 		
-		//repainting window every 20ms
+		//repainting window every 60ms
 		ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(5);
-		executor.scheduleAtFixedRate(new RepaintScreen(this), 0L, 60L, TimeUnit.MILLISECONDS);
+		executor.scheduleAtFixedRate(new RepaintScreen(this), 0L, repaintTimeRate, TimeUnit.MILLISECONDS);
 		
 		this.setVisible(true);
 	}
@@ -58,9 +61,16 @@ public class GameScreen extends JFrame {
 		/* ADDING MOVEMENT TO SNAKE */
 		
 		this.addKeyListener(new KeyListener() {
+			
+			private Long lastPressProcessed = 0L;
 
 			@Override
 			public void keyPressed(KeyEvent e) {
+				
+				//preventing the user from spamming buttons
+				if(System.currentTimeMillis() - lastPressProcessed < repaintTimeRate) {
+					return;
+				}
 				
 				switch(e.getKeyCode()) {
 				
@@ -89,6 +99,8 @@ public class GameScreen extends JFrame {
 				}
 				
 				}
+				
+				lastPressProcessed = System.currentTimeMillis();
 				
 			}
 
