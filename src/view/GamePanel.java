@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import model.Direction;
@@ -88,6 +89,20 @@ public class GamePanel extends JPanel {
 			
 		}
 		
+		//there have to be at least 4 rectangles to be able to intersect
+		if(grownSnake.getSnakeList().size() > 3) {
+			
+			for(int i = 1; i < grownSnake.getSnakeList().size(); i++) {
+				if(grownSnake.getSnakeList().get(0).intersects(grownSnake.getSnakeList().get(i))) {
+					GameScreen.executor.shutdown();
+					JOptionPane.showMessageDialog(null, "Game over");
+					System.exit(1);
+					return;
+				}
+			}
+			
+		}
+		
 	}
 	
 	public void moveSnake() {
@@ -101,26 +116,13 @@ public class GamePanel extends JPanel {
 		if(grownSnake.getSnakeList().get(0).getDirection() != this.keyPressedNum) {
 			
 			grownSnake.getSnakeList().get(0).setDirection(this.keyPressedNum);
-			//grownSnake.getSnakeList().get(0).getTurnDirections().setKeyNum(this.keyPressedNum);
 			
-			
-			//TODO: dodaj svima u listu direkcije za skretanje
+			//add turn directions to all the successors
 			for(int i = 1; i < grownSnake.getSnakeList().size(); i++) {
 				grownSnake.getSnakeList().get(i).getTurnDirections().add(new Direction(this.keyPressedNum,
 						grownSnake.getSnakeList().get(0).getX(), grownSnake.getSnakeList().get(0).getY()));
 				
 			}
-			
-			
-			
-			/*
-			//memorize the turn to the head's successor 
-			if(grownSnake.getSnakeList().size() > 1) {
-				grownSnake.getSnakeList().get(1).getTurnDirection().setTurnXPos(grownSnake.getSnakeList().get(0).getX());
-				grownSnake.getSnakeList().get(1).getTurnDirection().setTurnYPos(grownSnake.getSnakeList().get(0).getY());
-				
-				grownSnake.getSnakeList().get(1).getTurnDirection().setKeyNum(this.keyPressedNum);
-			}*/
 			
 		}
 		
@@ -136,13 +138,8 @@ public class GamePanel extends JPanel {
 				//update it's current direction
 				grownSnake.getSnakeList().get(i).setDirection(grownSnake.getSnakeList().get(i).getTurnDirections().get(0).getKeyNum());
 				
+				//the direction is updated so I no longer need to memorize it
 				grownSnake.getSnakeList().get(i).getTurnDirections().remove(0);
-				//TODO: u tom slucaju ovo ne treba
-				/*
-				//shift the turn to the next rect
-				if(i != grownSnake.getSnakeList().size() - 1) {
-					grownSnake.getSnakeList().get(i+1).setTurnDirection(grownSnake.getSnakeList().get(i).getTurnDirection());
-				}*/
 				
 			}
 			

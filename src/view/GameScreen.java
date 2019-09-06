@@ -22,7 +22,8 @@ public class GameScreen extends JFrame {
 	public static int windowWidth = 400;
 	
 	public static int componentLength = 10; //food and snake size
-	//public static int movementSpeed = 10;
+	
+	public static ScheduledThreadPoolExecutor executor;
 	
 	
 	public GameScreen() {
@@ -38,9 +39,9 @@ public class GameScreen extends JFrame {
 		addListeners(panel); //adding purpose to arrow keys for movement
 		
 		//repainting window every 60ms
-		ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(5);
+		executor = new ScheduledThreadPoolExecutor(5);
 		executor.scheduleAtFixedRate(new RepaintScreen(this), 0L, repaintTimeRate, TimeUnit.MILLISECONDS);
-		
+
 		this.setVisible(true);
 	}
 	
@@ -68,7 +69,7 @@ public class GameScreen extends JFrame {
 			public void keyPressed(KeyEvent e) {
 				
 				//preventing the user from spamming buttons
-				if(System.currentTimeMillis() - lastPressProcessed < repaintTimeRate) {
+				if(System.currentTimeMillis() - lastPressProcessed < repaintTimeRate-10L) {
 					return;
 				}
 				
