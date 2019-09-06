@@ -26,8 +26,7 @@ public class GrownSnake {
 		
 		//TODO: ovde jede govna
 		if(snakeList.get(snakeList.size()-2).getTurnDirections().size() > 0) {
-			//snakeList.get(snakeList.size()-1).getTurnDirections().add(snakeList.get(snakeList.size()-2).getTurnDirections().get(0));
-		
+			snakeList.get(snakeList.size()-1).getTurnDirections().add(snakeList.get(snakeList.size()-2).getTurnDirections().get(0));
 		}
 		
 	}
