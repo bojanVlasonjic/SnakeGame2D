@@ -23,7 +23,7 @@ public class GameScreen extends JFrame {
 	
 	public static int componentLength = 10; //food and snake size
 	
-	public static ScheduledThreadPoolExecutor executor;
+	public static ScheduledThreadPoolExecutor executor; //executes the repainting of the screen
 	
 	
 	public GameScreen() {
