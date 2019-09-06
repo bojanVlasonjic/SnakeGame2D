@@ -24,9 +24,13 @@ public class GrownSnake {
 		//the new component will be going in the same direction as it's predecessor
 		snakeList.get(snakeList.size()-1).setDirection(snakeList.get(snakeList.size()-2).getDirection());
 		
-		//TODO: ovde jede govna
+		//memorizing turn directions of the predecessor if there are any
 		if(snakeList.get(snakeList.size()-2).getTurnDirections().size() > 0) {
-			snakeList.get(snakeList.size()-1).getTurnDirections().add(snakeList.get(snakeList.size()-2).getTurnDirections().get(0));
+			
+			for (Direction direction : snakeList.get(snakeList.size()-2).getTurnDirections()) {
+				snakeList.get(snakeList.size()-1).getTurnDirections().add(direction);
+			}
+			//snakeList.get(snakeList.size()-1).getTurnDirections().add(snakeList.get(snakeList.size()-2).getTurnDirections().get(0));
 		}
 		
 	}

@@ -84,8 +84,7 @@ public class GamePanel extends JPanel {
 			food.changePosition(); //food position changes every time the snake eats it
 			
 			//increasing snake length
-			SnakeComponent newComponent = new SnakeComponent();
-			grownSnake.increaseLength(newComponent);
+			grownSnake.increaseLength(new SnakeComponent());
 			
 		}
 		
