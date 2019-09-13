@@ -25,10 +25,5 @@ public class WelcomeScreen extends JFrame {
 		this.setVisible(true);
 		
 	}
-	
-	public void hideScreen() {
-		this.setVisible(false);
-	}
-	
 
 }

@@ -17,8 +17,8 @@ public class Food extends Rectangle {
 	private Food() {
 		
 		//fixed starting position, width and height
-		super(GameScreen.windowWidth/2, GameScreen.windowHeight/2,
-				GameScreen.componentLength, GameScreen.componentLength); 
+		super(GameScreen.componentLength, GameScreen.componentLength);
+		setDefaultPosition();
 		
 	}
 	
@@ -30,6 +30,11 @@ public class Food extends Rectangle {
 		
 		return instance;
 		
+	}
+	
+	public void setDefaultPosition() {
+		this.x = GameScreen.windowWidth/2;
+		this.y = GameScreen.windowHeight/2;
 	}
 	
 	

@@ -37,13 +37,15 @@ public class WelcomePanel extends JPanel {
 		
 		//Creating start game button
 		JButton startGameBtn = createButton("Start game");
-		addStartListener(startGameBtn);
 		
 		this.add(startGameBtn);
 		this.add(Box.createRigidArea(new Dimension(0, 15))); //setting spacing
 		
 		//Creating difficulty combobox
-		initDifficulty();
+		JComboBox<Difficulty> difficultyBox = initDifficulty();
+		this.add(difficultyBox);
+		
+		addStartListener(startGameBtn, difficultyBox); //adding start game event
 		
 	}
 	
@@ -76,21 +78,21 @@ public class WelcomePanel extends JPanel {
 		
 	}
 	
-	public void addStartListener(JButton startGameBtn) {
+	public void addStartListener(JButton startGameBtn, JComboBox<Difficulty> difficultyBox) {
 		
 		startGameBtn.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new GameScreen();
+				new GameScreen((Difficulty) difficultyBox.getSelectedItem());
 				
 			}
 		});
 	}
 	
-	public void initDifficulty() {
+	public JComboBox<Difficulty> initDifficulty() {
 		
-		createLabel("Select difficulty");
+		this.add(createLabel("Select difficulty"));
 		
 		JComboBox<Difficulty> difficultyBox = new JComboBox<Difficulty>(Difficulty.values());
 		difficultyBox.setSelectedItem(Difficulty.MEDIUM);
@@ -102,6 +104,8 @@ public class WelcomePanel extends JPanel {
 		difficultyBox.setFocusable(false);
 		
 		this.add(difficultyBox);
+		
+		return difficultyBox;
 		
 		
 	}
