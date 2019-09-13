@@ -2,6 +2,7 @@ package view;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.WindowEvent;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
@@ -16,7 +17,7 @@ import model.SnakeComponent;
 public class GameScreen extends JFrame {
 	
 	
-	public static final Long repaintTimeRate = 60L;
+	public static Long repaintTimeRate = 60L;
 	
 	public static int windowHeight = 400;
 	public static int windowWidth = 400;
@@ -30,7 +31,6 @@ public class GameScreen extends JFrame {
 		
 		this.setSize(windowWidth, windowHeight);
 		this.setLocationRelativeTo(null);
-		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
 		GamePanel panel = new GamePanel();
 		panel = initPanelComponents(panel);
