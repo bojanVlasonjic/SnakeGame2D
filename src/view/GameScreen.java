@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.HashMap;
@@ -8,6 +9,7 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 
 import model.Difficulty;
 import model.Food;
@@ -19,7 +21,7 @@ import model.SnakeComponent;
 public class GameScreen extends JFrame {
 	 
 	
-	private Map<Difficulty, Long> difficultySpeeds;
+	private Map<Difficulty, Long> difficultySpeeds; //containts repaint time rate depending on the difficulty
 	private Long repaintTimeRate;
 	
 	public static int windowHeight = 400;
@@ -28,6 +30,8 @@ public class GameScreen extends JFrame {
 	public static int componentLength = 10; //food and snake size
 	
 	public static ScheduledThreadPoolExecutor executor; //executes the repainting of the screen
+	
+	public static JLabel scoreLabel;
 	
 	
 	public GameScreen(Difficulty selectedDifficulty) {
@@ -71,6 +75,10 @@ public class GameScreen extends JFrame {
 		panel.getFood().setDefaultPosition(); //food is in center by default
 		
 		panel.setGrownSnake(new GrownSnake(snakeHead));
+		
+		scoreLabel = new JLabel(GamePanel.SCORE_STR + 0);
+		scoreLabel.setForeground(Color.WHITE);
+		panel.add(scoreLabel);
 		
 		return panel;
 		

@@ -32,7 +32,8 @@ public class WelcomePanel extends JPanel {
 		this.add(Box.createRigidArea(new Dimension(0, 15))); //setting spacing
 		
 		//Creating header
-		this.add(createLabel("Snake Game 2D"));
+		JLabel headerLabel = createLabel("Snake Game 2D");
+		this.add(headerLabel);
 		this.add(Box.createRigidArea(new Dimension(0, 15))); //setting spacing
 		
 		//Creating start game button
