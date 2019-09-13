@@ -2,11 +2,14 @@ package view;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 import javax.swing.JFrame;
 
+import model.Difficulty;
 import model.Food;
 import model.GrownSnake;
 import model.SnakeComponent;
@@ -14,9 +17,10 @@ import model.SnakeComponent;
 
 @SuppressWarnings("serial")
 public class GameScreen extends JFrame {
+	 
 	
-	
-	public static final Long repaintTimeRate = 60L;
+	private Map<Difficulty, Long> difficultySpeeds;
+	private Long repaintTimeRate;
 	
 	public static int windowHeight = 400;
 	public static int windowWidth = 400;
@@ -26,11 +30,14 @@ public class GameScreen extends JFrame {
 	public static ScheduledThreadPoolExecutor executor; //executes the repainting of the screen
 	
 	
-	public GameScreen() {
+	public GameScreen(Difficulty selectedDifficulty) {
+		
+		//setting the speed of the snake based on difficulty
+		initDifficultyMap();
+		repaintTimeRate = difficultySpeeds.get(selectedDifficulty);
 		
 		this.setSize(windowWidth, windowHeight);
 		this.setLocationRelativeTo(null);
-		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
 		GamePanel panel = new GamePanel();
 		panel = initPanelComponents(panel);
@@ -46,11 +53,23 @@ public class GameScreen extends JFrame {
 	}
 	
 	
+	public void initDifficultyMap() {
+		
+		this.difficultySpeeds = new HashMap<Difficulty, Long>();
+		difficultySpeeds.put(Difficulty.EASY, 70L);
+		difficultySpeeds.put(Difficulty.MEDIUM, 50L);
+		difficultySpeeds.put(Difficulty.HARD, 30L);
+		
+	}
+	
+	
 	public GamePanel initPanelComponents(GamePanel panel) {
 		
 		SnakeComponent snakeHead = new SnakeComponent(60, 60, componentLength, componentLength);
 		
 		panel.setFood(Food.getInstance());
+		panel.getFood().setDefaultPosition(); //food is in center by default
+		
 		panel.setGrownSnake(new GrownSnake(snakeHead));
 		
 		return panel;
