@@ -21,6 +21,9 @@ public class GamePanel extends JPanel {
 	
 	private boolean gameOver = false;
 	
+	public static final String SCORE_STR = "Score: "; 
+	private Long score = 0L;
+	
 	private int keyPressedNum = 0; //initially no keys were pressed
 	private int prevKeyNum = 0; //initially no previous keys were pressed
 	
@@ -92,6 +95,10 @@ public class GamePanel extends JPanel {
 			
 			//increasing snake length
 			grownSnake.increaseLength(new SnakeComponent());
+			
+			//increasing score
+			score += 1;
+			GameScreen.scoreLabel.setText(SCORE_STR + score); 
 			
 		}
 		
