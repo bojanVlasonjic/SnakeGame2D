@@ -20,11 +20,13 @@ public class WelcomePanel extends JPanel {
 	
 	
 	private Font defaultFont;
+	private Font headerFont;
 	
 	
 	public WelcomePanel() {
 		
-		this.defaultFont = new Font("Tahoma", Font.BOLD, 12);
+		this.defaultFont = new Font("Tahoma", Font.PLAIN, 12);
+		this.headerFont = new Font("Tahoma", Font.BOLD, 16);
 		
 		this.setBackground(Color.black);
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -32,7 +34,7 @@ public class WelcomePanel extends JPanel {
 		this.add(Box.createRigidArea(new Dimension(0, 15))); //setting spacing
 		
 		//Creating header
-		JLabel headerLabel = createLabel("Snake Game 2D");
+		JLabel headerLabel = createLabel("Snake Game 2D", headerFont);
 		this.add(headerLabel);
 		this.add(Box.createRigidArea(new Dimension(0, 15))); //setting spacing
 		
@@ -51,11 +53,11 @@ public class WelcomePanel extends JPanel {
 	}
 	
 	
-	public JLabel createLabel(String title) {
+	public JLabel createLabel(String title, Font font) {
 		
 		JLabel label = new JLabel(title);
 		
-		label.setFont(defaultFont);
+		label.setFont(font);
 		label.setForeground(Color.white);
 		label.setAlignmentX(CENTER_ALIGNMENT);
 		
@@ -93,7 +95,7 @@ public class WelcomePanel extends JPanel {
 	
 	public JComboBox<Difficulty> initDifficulty() {
 		
-		this.add(createLabel("Select difficulty"));
+		this.add(createLabel("Select difficulty", defaultFont));
 		
 		JComboBox<Difficulty> difficultyBox = new JComboBox<Difficulty>(Difficulty.values());
 		difficultyBox.setSelectedItem(Difficulty.MEDIUM);

@@ -43,6 +43,9 @@ public class GameScreen extends JFrame {
 		this.setSize(windowWidth, windowHeight);
 		this.setLocationRelativeTo(null);
 		
+		//making the window unresizable
+		this.setResizable(false);
+		
 		GamePanel panel = new GamePanel();
 		panel = initPanelComponents(panel);
 		this.add(panel);

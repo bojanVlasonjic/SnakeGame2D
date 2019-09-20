@@ -19,9 +19,10 @@ public class GamePanel extends JPanel {
 	private Food food;
 	private GrownSnake grownSnake; //whole snake
 	
-	private boolean gameOver = false;
+	//private boolean gameOver = false;
 	
 	public static final String SCORE_STR = "Score: "; 
+	public static final String GAME_OVER_STR = "GAME OVER";
 	private Long score = 0L;
 	
 	private int keyPressedNum = 0; //initially no keys were pressed
@@ -30,9 +31,10 @@ public class GamePanel extends JPanel {
 	
 	protected void paintComponent(Graphics g) {
 		
+		/*
 		if(gameOver) {
 			GameScreen.executor.shutdown(); //stop repainting the screen
-		}
+		}*/
 		
 		Graphics2D graphicSettings = (Graphics2D)g;
 		
@@ -107,9 +109,12 @@ public class GamePanel extends JPanel {
 			
 			for(int i = 1; i < grownSnake.getSnakeList().size(); i++) {
 				if(grownSnake.getSnakeList().get(0).intersects(grownSnake.getSnakeList().get(i))) {
+					/*
 					gameOver = true;
 					JOptionPane.showMessageDialog(null, "Game over");
-					System.exit(1);
+					System.exit(1); */
+					GameScreen.scoreLabel.setText(GAME_OVER_STR);
+					GameScreen.executor.shutdown(); 
 					return;
 				}
 			}
