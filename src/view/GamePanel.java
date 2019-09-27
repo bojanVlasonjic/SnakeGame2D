@@ -36,7 +36,7 @@ public class GamePanel extends JPanel {
 		Graphics2D graphicSettings = (Graphics2D)g;
 		
 		//coloring background
-		graphicSettings.setColor(Color.BLACK);
+		graphicSettings.setColor(GameScreen.backgroundColor);
 		graphicSettings.fillRect(0, 0, GameScreen.windowWidth, GameScreen.windowHeight);
 		
 		

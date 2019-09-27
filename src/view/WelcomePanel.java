@@ -30,7 +30,7 @@ public class WelcomePanel extends JPanel {
 		this.defaultFont = new Font("Tahoma", Font.PLAIN, 12);
 		this.headerFont = new Font("Tahoma", Font.BOLD, 16);
 		
-		this.setBackground(Color.black);
+		this.setBackground(GameScreen.backgroundColor);
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		
 		this.add(Box.createRigidArea(new Dimension(0, 15))); //setting spacing
@@ -79,7 +79,7 @@ public class WelcomePanel extends JPanel {
 		
 		button.setFont(defaultFont);
 		button.setAlignmentX(CENTER_ALIGNMENT);
-		button.setBackground(Color.BLACK);
+		button.setBackground(GameScreen.backgroundColor);
 		button.setForeground(Color.WHITE);
 		button.setFocusPainted(false);
 		
@@ -112,7 +112,7 @@ public class WelcomePanel extends JPanel {
 		title.setTitleJustification(TitledBorder.CENTER);
 		
 		difficultyBox.setBorder(title);
-		difficultyBox.setBackground(Color.BLACK);
+		difficultyBox.setBackground(GameScreen.backgroundColor);
 		difficultyBox.setForeground(Color.WHITE);
 		difficultyBox.setMaximumSize(new Dimension(120, 50));
 		difficultyBox.setFocusable(false);

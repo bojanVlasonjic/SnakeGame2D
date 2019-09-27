@@ -1,7 +1,6 @@
 package view;
 
 import java.awt.Color;
-
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.HashMap;
@@ -32,6 +31,8 @@ public class GameScreen extends JFrame {
 	public static int componentLength = 10; //food and snake size
 	
 	public static ScheduledThreadPoolExecutor executor; //executes the repainting of the screen
+	
+	public static Color backgroundColor = new Color(39,41,44);
 	
 	public static JLabel headerLabel;
 	
