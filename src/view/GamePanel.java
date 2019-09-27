@@ -1,16 +1,21 @@
 package view;
 
 import java.awt.Color;
-
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.io.IOException;
+import java.util.ArrayList;
 
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import auxiliary.Constants;
+import io.HighScoreIO;
+import io.TopFiveHighScores;
+import model.Difficulty;
 import model.Direction;
 import model.Food;
 import model.GrownSnake;
+import model.HighScore;
 import model.SnakeComponent;
 
 @SuppressWarnings("serial")
@@ -19,10 +24,7 @@ public class GamePanel extends JPanel {
 	private Food food;
 	private GrownSnake grownSnake; //whole snake
 	
-	//private boolean gameOver = false;
-	
-	public static final String SCORE_STR = "Score: "; 
-	public static final String GAME_OVER_STR = "GAME OVER";
+	private Difficulty selectedDifficulty;
 	private Long score = 0L;
 	
 	private int keyPressedNum = 0; //initially no keys were pressed
@@ -30,11 +32,6 @@ public class GamePanel extends JPanel {
 	
 	
 	protected void paintComponent(Graphics g) {
-		
-		/*
-		if(gameOver) {
-			GameScreen.executor.shutdown(); //stop repainting the screen
-		}*/
 		
 		Graphics2D graphicSettings = (Graphics2D)g;
 		
@@ -100,25 +97,40 @@ public class GamePanel extends JPanel {
 			
 			//increasing score
 			score += 1;
-			GameScreen.scoreLabel.setText(SCORE_STR + score); 
+			GameScreen.headerLabel.setText(Constants.SCORE_STR + score); 
 			
 		}
 		
-		//there have to be at least 4 rectangles to be able to intersect
-		if(grownSnake.getSnakeList().size() > 3) {
+		//there have to be at least 5 rectangles to be able to intersect
+		if(grownSnake.getSnakeList().size() > 4) {
 			
 			for(int i = 1; i < grownSnake.getSnakeList().size(); i++) {
+				
+				//if the snake head hit it's body
 				if(grownSnake.getSnakeList().get(0).intersects(grownSnake.getSnakeList().get(i))) {
-					/*
-					gameOver = true;
-					JOptionPane.showMessageDialog(null, "Game over");
-					System.exit(1); */
-					GameScreen.scoreLabel.setText(GAME_OVER_STR);
+					GameScreen.headerLabel.setText(Constants.GAME_OVER_STR);
 					GameScreen.executor.shutdown(); 
+					
+					saveHighScore();
 					return;
 				}
 			}
 			
+		}
+		
+	}
+	
+	
+	public void saveHighScore() {
+		
+		TopFiveHighScores.getInstance().addNewScore(score, selectedDifficulty);
+		
+		try {
+			HighScoreIO.writeHighScores((ArrayList<HighScore>) TopFiveHighScores.getInstance().getHighScores());
+			System.out.println("High scores saved");
+		} catch (IOException e) {
+			System.out.println("Error saving high scores");
+			e.printStackTrace();
 		}
 		
 	}
@@ -229,6 +241,16 @@ public class GamePanel extends JPanel {
 
 	public void setPrevKeyNum(int prevKeyNum) {
 		this.prevKeyNum = prevKeyNum;
+	}
+
+
+	public Difficulty getSelectedDifficulty() {
+		return selectedDifficulty;
+	}
+
+
+	public void setSelectedDifficulty(Difficulty selectedDifficulty) {
+		this.selectedDifficulty = selectedDifficulty;
 	}
 
 

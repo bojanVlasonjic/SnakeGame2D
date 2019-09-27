@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.Color;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.HashMap;
@@ -11,6 +12,7 @@ import java.util.concurrent.TimeUnit;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+import auxiliary.Constants;
 import model.Difficulty;
 import model.Food;
 import model.GrownSnake;
@@ -21,7 +23,7 @@ import model.SnakeComponent;
 public class GameScreen extends JFrame {
 	 
 	
-	private Map<Difficulty, Long> difficultySpeeds; //containts repaint time rate depending on the difficulty
+	private Map<Difficulty, Long> difficultySpeeds; //contains repaint time rate depending on the difficulty
 	private Long repaintTimeRate;
 	
 	public static int windowHeight = 400;
@@ -31,7 +33,7 @@ public class GameScreen extends JFrame {
 	
 	public static ScheduledThreadPoolExecutor executor; //executes the repainting of the screen
 	
-	public static JLabel scoreLabel;
+	public static JLabel headerLabel;
 	
 	
 	public GameScreen(Difficulty selectedDifficulty) {
@@ -49,6 +51,8 @@ public class GameScreen extends JFrame {
 		GamePanel panel = new GamePanel();
 		panel = initPanelComponents(panel);
 		this.add(panel);
+		
+		panel.setSelectedDifficulty(selectedDifficulty); //memorize the selected difficulty to use in the score
 		
 		addListeners(panel); //adding purpose to arrow keys for movement
 		
@@ -79,9 +83,9 @@ public class GameScreen extends JFrame {
 		
 		panel.setGrownSnake(new GrownSnake(snakeHead));
 		
-		scoreLabel = new JLabel(GamePanel.SCORE_STR + 0);
-		scoreLabel.setForeground(Color.WHITE);
-		panel.add(scoreLabel);
+		headerLabel = new JLabel(Constants.SCORE_STR + 0);
+		headerLabel.setForeground(Color.WHITE);
+		panel.add(headerLabel);
 		
 		return panel;
 		
