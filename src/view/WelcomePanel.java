@@ -6,12 +6,14 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.TitledBorder;
 
 import model.Difficulty;
 
@@ -28,7 +30,7 @@ public class WelcomePanel extends JPanel {
 		this.defaultFont = new Font("Tahoma", Font.PLAIN, 12);
 		this.headerFont = new Font("Tahoma", Font.BOLD, 16);
 		
-		this.setBackground(Color.black);
+		this.setBackground(GameScreen.backgroundColor);
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		
 		this.add(Box.createRigidArea(new Dimension(0, 15))); //setting spacing
@@ -39,7 +41,7 @@ public class WelcomePanel extends JPanel {
 		this.add(Box.createRigidArea(new Dimension(0, 15))); //setting spacing
 		
 		//Creating start game button
-		JButton startGameBtn = createButton("Start game");
+		JButton startGameBtn = createButton("START GAME");
 		
 		this.add(startGameBtn);
 		this.add(Box.createRigidArea(new Dimension(0, 15))); //setting spacing
@@ -47,8 +49,13 @@ public class WelcomePanel extends JPanel {
 		//Creating difficulty combobox
 		JComboBox<Difficulty> difficultyBox = initDifficulty();
 		this.add(difficultyBox);
+		this.add(Box.createRigidArea(new Dimension(0, 15))); //setting spacing
 		
 		addStartListener(startGameBtn, difficultyBox); //adding start game event
+		
+		//Creating high score button
+		JButton highScoresBtn = createButton("HIGH SCORES");
+		this.add(highScoresBtn);
 		
 	}
 	
@@ -72,7 +79,7 @@ public class WelcomePanel extends JPanel {
 		
 		button.setFont(defaultFont);
 		button.setAlignmentX(CENTER_ALIGNMENT);
-		button.setBackground(Color.BLACK);
+		button.setBackground(GameScreen.backgroundColor);
 		button.setForeground(Color.WHITE);
 		button.setFocusPainted(false);
 		
@@ -95,15 +102,19 @@ public class WelcomePanel extends JPanel {
 	
 	public JComboBox<Difficulty> initDifficulty() {
 		
-		this.add(createLabel("Select difficulty", defaultFont));
-		
 		JComboBox<Difficulty> difficultyBox = new JComboBox<Difficulty>(Difficulty.values());
 		difficultyBox.setSelectedItem(Difficulty.MEDIUM);
 		
-		difficultyBox.setAlignmentX(CENTER_ALIGNMENT);
-		difficultyBox.setBackground(Color.BLACK);
+		//adding a titled border
+		TitledBorder title = BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(), "Select difficulty");
+		title.setTitleColor(Color.WHITE);
+		title.setTitleFont(defaultFont);
+		title.setTitleJustification(TitledBorder.CENTER);
+		
+		difficultyBox.setBorder(title);
+		difficultyBox.setBackground(GameScreen.backgroundColor);
 		difficultyBox.setForeground(Color.WHITE);
-		difficultyBox.setMaximumSize(new Dimension(100, 25));
+		difficultyBox.setMaximumSize(new Dimension(120, 50));
 		difficultyBox.setFocusable(false);
 		
 		this.add(difficultyBox);

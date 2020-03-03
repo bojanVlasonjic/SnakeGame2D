@@ -3,6 +3,8 @@ package view;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
@@ -11,6 +13,7 @@ import java.util.concurrent.TimeUnit;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+import auxiliary.Constants;
 import model.Difficulty;
 import model.Food;
 import model.GrownSnake;
@@ -21,7 +24,7 @@ import model.SnakeComponent;
 public class GameScreen extends JFrame {
 	 
 	
-	private Map<Difficulty, Long> difficultySpeeds; //containts repaint time rate depending on the difficulty
+	private Map<Difficulty, Long> difficultySpeeds; //contains repaint time rate depending on the difficulty
 	private Long repaintTimeRate;
 	
 	public static int windowHeight = 400;
@@ -31,7 +34,9 @@ public class GameScreen extends JFrame {
 	
 	public static ScheduledThreadPoolExecutor executor; //executes the repainting of the screen
 	
-	public static JLabel scoreLabel;
+	public static Color backgroundColor = new Color(39,41,44);
+	
+	public static JLabel headerLabel;
 	
 	
 	public GameScreen(Difficulty selectedDifficulty) {
@@ -50,12 +55,21 @@ public class GameScreen extends JFrame {
 		panel = initPanelComponents(panel);
 		this.add(panel);
 		
+		panel.setSelectedDifficulty(selectedDifficulty); //memorize the selected difficulty to use in the score
+		
 		addListeners(panel); //adding purpose to arrow keys for movement
 		
 		//repainting window every 60ms
 		executor = new ScheduledThreadPoolExecutor(5);
 		executor.scheduleAtFixedRate(new RepaintScreen(this), 0L, repaintTimeRate, TimeUnit.MILLISECONDS);
 
+		// adding window on close event
+		this.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+	            executor.shutdown();
+	        }
+		});
+		
 		this.setVisible(true);
 	}
 	
@@ -79,9 +93,9 @@ public class GameScreen extends JFrame {
 		
 		panel.setGrownSnake(new GrownSnake(snakeHead));
 		
-		scoreLabel = new JLabel(GamePanel.SCORE_STR + 0);
-		scoreLabel.setForeground(Color.WHITE);
-		panel.add(scoreLabel);
+		headerLabel = new JLabel(Constants.SCORE_STR + 0);
+		headerLabel.setForeground(Color.WHITE);
+		panel.add(headerLabel);
 		
 		return panel;
 		
