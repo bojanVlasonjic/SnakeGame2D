@@ -12,9 +12,9 @@ import model.HighScore;
 @SuppressWarnings("serial")
 public class WelcomeScreen extends JFrame {
 	
+	
 	private int windowWidth = 300;
 	private int windowHeight = 250;
-	
 	
 	public WelcomeScreen() {
 		

@@ -1,7 +1,6 @@
 package view;
 
 import java.awt.Color;
-
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -20,6 +19,7 @@ import model.Difficulty;
 
 @SuppressWarnings("serial")
 public class WelcomePanel extends JPanel {
+	
 	
 	private Font defaultFont;
 	private Font headerFont;
