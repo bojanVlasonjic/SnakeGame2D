@@ -3,6 +3,8 @@ package view;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
@@ -46,7 +48,6 @@ public class GameScreen extends JFrame {
 		this.setSize(windowWidth, windowHeight);
 		this.setLocationRelativeTo(null);
 		
-		//making the window unresizable
 		this.setResizable(false);
 		
 		GamePanel panel = new GamePanel();
@@ -61,6 +62,13 @@ public class GameScreen extends JFrame {
 		executor = new ScheduledThreadPoolExecutor(5);
 		executor.scheduleAtFixedRate(new RepaintScreen(this), 0L, repaintTimeRate, TimeUnit.MILLISECONDS);
 
+		// adding window on close event
+		this.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+	            executor.shutdown();
+	        }
+		});
+		
 		this.setVisible(true);
 	}
 	
