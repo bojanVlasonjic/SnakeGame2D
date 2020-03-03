@@ -27,6 +27,8 @@ public class GamePanel extends JPanel {
 	private Difficulty selectedDifficulty;
 	private Long score = 0L;
 	
+	private boolean gameOver = false;
+	
 	private int keyPressedNum = 0; //initially no keys were pressed
 	private int prevKeyNum = 0; //initially no previous keys were pressed
 	
@@ -51,9 +53,10 @@ public class GamePanel extends JPanel {
 			this.keyPressedNum = this.prevKeyNum; //the snake will remain on the current direction
 		}
 		
-		moveSnake();
-		
-		detectCollision(graphicSettings);
+		if(!this.gameOver) {
+			moveSnake();
+			detectCollision(graphicSettings);
+		}
 		
 		
 	}
@@ -109,7 +112,7 @@ public class GamePanel extends JPanel {
 				//if the snake head hit it's body
 				if(grownSnake.getSnakeList().get(0).intersects(grownSnake.getSnakeList().get(i))) {
 					GameScreen.headerLabel.setText(Constants.GAME_OVER_STR);
-					GameScreen.executor.shutdown(); 
+					this.gameOver = true;
 					
 					saveHighScore();
 					return;

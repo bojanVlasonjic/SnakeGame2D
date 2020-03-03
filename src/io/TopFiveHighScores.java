@@ -39,24 +39,30 @@ public class TopFiveHighScores {
 	}
 	
 	
-	public void addNewScore(Long score, Difficulty selectedDifficulty) {
-		
-		//if there are already five high scores
-		if(this.highScores.size() >= Constants.HIGH_SCORES_NUM) {
-			
-			//see if the new one beats the last ranking one
-			if(score > this.highScores.get(this.highScores.size()-1).getScore()) {
-				this.highScores.remove(this.highScores.size()-1);
-				this.highScores.add(new HighScore("unknown", score, selectedDifficulty, new Date()));
-			}
-		
-		} else {
-			this.highScores.add(new HighScore("unknown", score, selectedDifficulty, new Date()));
+	public boolean isHighScore(Long score) {
+
+		if(this.highScores.size() < Constants.HIGH_SCORES_NUM ||
+				score > this.highScores.get(this.highScores.size()-1).getScore()) {
+			return true;
 		}
-		
-		Collections.sort(this.highScores, sorter);
-		
+
+		return false;
+
 	}
+
+
+	public void addNewScore(Long score, Difficulty selectedDifficulty) {
+
+		// the number of high scores is filled up
+		if(this.highScores.size() >= Constants.HIGH_SCORES_NUM) {
+			this.highScores.remove(this.highScores.size()-1);
+		} 
+		
+		this.highScores.add(new HighScore("unknown", score, selectedDifficulty, new Date()));
+		Collections.sort(this.highScores, sorter);
+
+	}
+
 
 	public List<HighScore> getHighScores() {
 		return highScores;
