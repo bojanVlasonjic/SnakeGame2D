@@ -93,13 +93,10 @@ public class GamePanel extends JPanel {
 		//detecting collision between snake and food
 		if(grownSnake.getSnakeList().get(0).getBounds().intersects(food.getBounds())) {
 			
-			food.changePosition(); //food position changes every time the snake eats it
-			
-			//increasing snake length
+			food.changePosition(); // food position changes every time the snake eats it
 			grownSnake.increaseLength(new SnakeComponent());
-			
-			//increasing score
 			score += 1;
+			
 			GameScreen.headerLabel.setText(Constants.SCORE_STR + score); 
 			
 		}

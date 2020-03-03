@@ -30,7 +30,7 @@ public class GrownSnake {
 			for (Direction direction : snakeList.get(snakeList.size()-2).getTurnDirections()) {
 				snakeList.get(snakeList.size()-1).getTurnDirections().add(direction);
 			}
-			//snakeList.get(snakeList.size()-1).getTurnDirections().add(snakeList.get(snakeList.size()-2).getTurnDirections().get(0));
+			
 		}
 		
 	}

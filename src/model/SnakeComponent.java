@@ -13,7 +13,6 @@ public class SnakeComponent extends Rectangle {
 	private int sHeight; 
 	
 	private int direction; //the direction the component is headed in (40 = down)
-	//private Direction turnDirection; //coordinates and new direction when snake turns
 	private List<Direction> turnDirections;
 	
 	private double speed = GameScreen.componentLength;
@@ -23,6 +22,7 @@ public class SnakeComponent extends Rectangle {
 		
 		this.direction = 0; //initially not moving
 		this.turnDirections = new ArrayList<Direction>();
+		
 	}
 	
 	public SnakeComponent(int xPos, int yPos, int width, int height) {
@@ -38,7 +38,7 @@ public class SnakeComponent extends Rectangle {
 	//moving down
 	public void increaseYPos() {
 		
-		if(this.y > GameScreen.windowHeight) {
+		if(this.y >= GameScreen.windowHeight) {
 			this.y -= GameScreen.windowHeight;//if the snake escapes out of the window it spawns on the other side
 			
 		} else {
@@ -52,7 +52,7 @@ public class SnakeComponent extends Rectangle {
 	//moving up
 	public void decreaseYPos() {
 		
-		if(this.y < 0) {
+		if(this.y <= 0) {
 			this.y += GameScreen.windowHeight;//if the snake escapes out of the window it spawns on the other side
 			
 		} else {
@@ -65,7 +65,7 @@ public class SnakeComponent extends Rectangle {
 	//moving right
 	public void increaseXPos() {
 		
-		if(this.x > GameScreen.windowWidth) {
+		if(this.x >= GameScreen.windowWidth) {
 			this.x -= GameScreen.windowWidth;//if the snake escapes out of the window it spawns on the other side
 			
 		} else {
@@ -78,7 +78,7 @@ public class SnakeComponent extends Rectangle {
 	//moving left
 	public void decreaseXPos() {
 		
-		if(this.x < 0) {
+		if(this.x <= 0) {
 			this.x += GameScreen.windowWidth;//if the snake escapes out of the window it spawns on the other side
 			
 		} else {

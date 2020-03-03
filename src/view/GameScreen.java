@@ -34,7 +34,7 @@ public class GameScreen extends JFrame {
 	
 	public static ScheduledThreadPoolExecutor executor; //executes the repainting of the screen
 	
-	public static Color backgroundColor = new Color(39,41,44);
+	public static Color backgroundColor = new Color(39, 41, 44);
 	
 	public static JLabel headerLabel;
 	
