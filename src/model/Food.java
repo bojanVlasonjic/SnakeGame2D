@@ -44,8 +44,8 @@ public class Food extends Rectangle {
 	public void changePosition() {
 		
 		//next position of the food is randomly generated 
-		int randX = (int) ( Math.random() * ((GameScreen.windowWidth/GameScreen.componentLength) - 5) ); //returns num between 10 and window width-10
-		int randY = (int) ( Math.random() * ((GameScreen.windowHeight/GameScreen.componentLength) - 5) ); //returns num between 10 and window height-10
+		int randX = (int) ( Math.random() * ((GameScreen.windowWidth/GameScreen.componentLength) - 2) ); //returns num between 10 and window width-10
+		int randY = (int) ( Math.random() * ((GameScreen.windowHeight/GameScreen.componentLength) - 4) ); //returns num between 10 and window height-10
 		
 		super.x = randX*10;
 		super.y = randY*10;
