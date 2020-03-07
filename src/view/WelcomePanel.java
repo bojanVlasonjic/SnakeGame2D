@@ -57,6 +57,8 @@ public class WelcomePanel extends JPanel {
 		JButton highScoresBtn = createButton("HIGH SCORES");
 		this.add(highScoresBtn);
 		
+		addHighScoreListener(highScoresBtn);
+		
 	}
 	
 	
@@ -98,6 +100,19 @@ public class WelcomePanel extends JPanel {
 				
 			}
 		});
+	}
+	
+	public void addHighScoreListener(JButton highScoreBtn) {
+		
+		highScoreBtn.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				new HighScoreScreen();
+			}
+			
+		});
+		
 	}
 	
 	public JComboBox<Difficulty> initDifficulty() {

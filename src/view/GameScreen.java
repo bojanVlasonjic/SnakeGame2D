@@ -45,11 +45,11 @@ public class GameScreen extends JFrame {
 		initDifficultyMap();
 		repaintTimeRate = difficultySpeeds.get(selectedDifficulty);
 		
-		this.setSize(windowWidth+16, windowHeight+39);
+		this.setSize(windowWidth+6, windowHeight+29);
 		this.setLocationRelativeTo(null);
 		
 		//making the window unresizable
-		this.setResizable(true);
+		this.setResizable(false);
 		
 		GamePanel panel = new GamePanel();
 		panel = initPanelComponents(panel);
