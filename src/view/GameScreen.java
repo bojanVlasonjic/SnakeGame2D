@@ -30,8 +30,6 @@ public class GameScreen extends JFrame {
 	public static int windowHeight = 400;
 	public static int windowWidth = 400;
 	
-	public static int componentLength = 10; //food and snake size
-	
 	public static ScheduledThreadPoolExecutor executor; //executes the repainting of the screen
 	
 	public static Color backgroundColor = new Color(39, 41, 44);
@@ -47,8 +45,6 @@ public class GameScreen extends JFrame {
 		
 		this.setSize(windowWidth+6, windowHeight+29);
 		this.setLocationRelativeTo(null);
-		
-		//making the window unresizable
 		this.setResizable(false);
 		
 		GamePanel panel = new GamePanel();
@@ -67,6 +63,7 @@ public class GameScreen extends JFrame {
 		this.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
 	            executor.shutdown();
+	            WelcomePanel.gameStarted = false;
 	        }
 		});
 		
@@ -86,7 +83,8 @@ public class GameScreen extends JFrame {
 	
 	public GamePanel initPanelComponents(GamePanel panel) {
 		
-		SnakeComponent snakeHead = new SnakeComponent(60, 60, componentLength, componentLength);
+		SnakeComponent snakeHead = new SnakeComponent(60, 60,
+				Constants.componentLength, Constants.componentLength);
 		
 		panel.setFood(Food.getInstance());
 		panel.getFood().setDefaultPosition(); //food is in center by default
@@ -112,7 +110,7 @@ public class GameScreen extends JFrame {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				
-				//preventing the user from spamming buttons
+				// preventing the user from spamming buttons
 				if(System.currentTimeMillis() - lastPressProcessed < repaintTimeRate-10L) {
 					return;
 				}

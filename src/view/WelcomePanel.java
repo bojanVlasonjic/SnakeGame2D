@@ -12,6 +12,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
@@ -23,6 +24,8 @@ public class WelcomePanel extends JPanel {
 	
 	private Font defaultFont;
 	private Font headerFont;
+	
+	public static boolean gameStarted = false;
 	
 	
 	public WelcomePanel() {
@@ -96,7 +99,15 @@ public class WelcomePanel extends JPanel {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new GameScreen((Difficulty) difficultyBox.getSelectedItem());
+				
+				if(!WelcomePanel.gameStarted) {
+					new GameScreen((Difficulty) difficultyBox.getSelectedItem());
+					gameStarted = true;
+				} else {
+					JOptionPane.showMessageDialog(null, 
+							"There is already a game instance running. Please close it to proceed.");
+				}
+				
 				
 			}
 		});

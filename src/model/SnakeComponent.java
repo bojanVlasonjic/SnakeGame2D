@@ -4,6 +4,7 @@ import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
 
+import auxiliary.Constants;
 import view.GameScreen;
 
 @SuppressWarnings("serial")
@@ -12,10 +13,10 @@ public class SnakeComponent extends Rectangle {
 	private int sWidth; 
 	private int sHeight; 
 	
-	private int direction; //the direction the component is headed in (40 = down)
+	private int direction; //the direction the component is headed in
 	private List<Direction> turnDirections;
 	
-	private double speed = GameScreen.componentLength;
+	private double speed = Constants.componentLength;
 	
 	
 	public SnakeComponent() {

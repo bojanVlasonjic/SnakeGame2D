@@ -27,7 +27,7 @@ public class HighScoreScreen extends JFrame {
 		this.scores = TopFiveHighScores.getInstance();
 		
 		this.setTitle("High scores");
-		this.setSize(600, 250);
+		this.setSize(600, 200);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
 		
