@@ -12,6 +12,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
@@ -23,6 +24,9 @@ public class WelcomePanel extends JPanel {
 	
 	private Font defaultFont;
 	private Font headerFont;
+	
+	public static boolean gameStarted = false;
+	public static boolean scoresShown = false;
 	
 	
 	public WelcomePanel() {
@@ -56,6 +60,8 @@ public class WelcomePanel extends JPanel {
 		//Creating high score button
 		JButton highScoresBtn = createButton("HIGH SCORES");
 		this.add(highScoresBtn);
+		
+		addHighScoreListener(highScoresBtn);
 		
 	}
 	
@@ -94,10 +100,38 @@ public class WelcomePanel extends JPanel {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new GameScreen((Difficulty) difficultyBox.getSelectedItem());
+				
+				if(!WelcomePanel.gameStarted) {
+					new GameScreen((Difficulty) difficultyBox.getSelectedItem());
+					gameStarted = true;
+				} else {
+					JOptionPane.showMessageDialog(null, 
+							"There is already a game instance running. Please close it to proceed.");
+				}
+				
 				
 			}
 		});
+	}
+	
+	public void addHighScoreListener(JButton highScoreBtn) {
+		
+		highScoreBtn.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				if(!scoresShown) {
+					new HighScoreScreen();
+					scoresShown = true;
+				} else {
+					JOptionPane.showMessageDialog(null,
+							"The scores have already been displayed.");
+				}
+				
+			}
+			
+		});
+		
 	}
 	
 	public JComboBox<Difficulty> initDifficulty() {

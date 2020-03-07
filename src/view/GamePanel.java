@@ -1,11 +1,14 @@
 package view;
 
 import java.awt.Color;
+
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import auxiliary.Constants;
@@ -41,9 +44,7 @@ public class GamePanel extends JPanel {
 		graphicSettings.setColor(GameScreen.backgroundColor);
 		graphicSettings.fillRect(0, 0, GameScreen.windowWidth, GameScreen.windowHeight);
 		
-		
 		drawSnake(graphicSettings);
-		
 		drawFood(graphicSettings);
 		
 		//if the player tried to move the snake in the opposite direction (opposite for 38 is 40, opposite for 37 is 39)
@@ -56,8 +57,7 @@ public class GamePanel extends JPanel {
 		if(!this.gameOver) {
 			moveSnake();
 			detectCollision(graphicSettings);
-		}
-		
+		} 
 		
 	}
 	
@@ -111,7 +111,12 @@ public class GamePanel extends JPanel {
 					GameScreen.headerLabel.setText(Constants.GAME_OVER_STR);
 					this.gameOver = true;
 					
-					saveHighScore();
+					if(TopFiveHighScores.getInstance().isHighScore(score)) {
+						saveHighScore();
+						WelcomePanel.scoresShown = true;
+						new HighScoreScreen();
+					}
+					
 					return;
 				}
 			}
@@ -123,7 +128,8 @@ public class GamePanel extends JPanel {
 	
 	public void saveHighScore() {
 		
-		TopFiveHighScores.getInstance().addNewScore(score, selectedDifficulty);
+		String name = JOptionPane.showInputDialog(null, "New high score achieved. Enter your name:");
+		TopFiveHighScores.getInstance().addNewScore(name, score, selectedDifficulty);
 		
 		try {
 			HighScoreIO.writeHighScores((ArrayList<HighScore>) TopFiveHighScores.getInstance().getHighScores());
@@ -132,7 +138,8 @@ public class GamePanel extends JPanel {
 			System.out.println("Error saving high scores");
 			e.printStackTrace();
 		}
-		
+	
+	
 	}
 	
 	public void moveSnake() {

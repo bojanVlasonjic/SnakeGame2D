@@ -51,14 +51,18 @@ public class TopFiveHighScores {
 	}
 
 
-	public void addNewScore(Long score, Difficulty selectedDifficulty) {
+	public void addNewScore(String username, Long score, Difficulty selectedDifficulty) {
 
 		// the number of high scores is filled up
 		if(this.highScores.size() >= Constants.HIGH_SCORES_NUM) {
 			this.highScores.remove(this.highScores.size()-1);
 		} 
 		
-		this.highScores.add(new HighScore("unknown", score, selectedDifficulty, new Date()));
+		if(username == null || "".equals(username)) {
+			username = "unknown";
+		}
+		
+		this.highScores.add(new HighScore(username, score, selectedDifficulty, new Date()));
 		Collections.sort(this.highScores, sorter);
 
 	}

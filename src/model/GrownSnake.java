@@ -2,7 +2,7 @@ package model;
 
 import java.util.ArrayList;
 
-import view.GameScreen;
+import auxiliary.Constants;
 
 public class GrownSnake {
 	
@@ -15,8 +15,8 @@ public class GrownSnake {
 	
 	public void increaseLength(SnakeComponent newComponent) {
 		
-		newComponent.width = GameScreen.componentLength;
-		newComponent.height = GameScreen.componentLength;
+		newComponent.width = Constants.componentLength;
+		newComponent.height = Constants.componentLength;
 				
 		//calculating the position of the new rectangle and adding it to the list
 		snakeList.add(calculateNewComponentPosition(newComponent, snakeList.get(snakeList.size()-1).getDirection()));
@@ -45,24 +45,24 @@ public class GrownSnake {
 		
 		case 40: { //DOWN
 			newComp.x = snakeList.get(snakeList.size() - 1).x;
-			newComp.y = snakeList.get(snakeList.size() - 1).y - GameScreen.componentLength;
+			newComp.y = snakeList.get(snakeList.size() - 1).y - Constants.componentLength;
 			break;
 		}
 	
 		case 38: { //UP
 			newComp.x = snakeList.get(snakeList.size() - 1).x;
-			newComp.y = snakeList.get(snakeList.size() - 1).y + GameScreen.componentLength;
+			newComp.y = snakeList.get(snakeList.size() - 1).y + Constants.componentLength;
 			break;
 		}
 	
 		case 39: { //RIGHT
-			newComp.x = snakeList.get(snakeList.size() - 1).x - GameScreen.componentLength;
+			newComp.x = snakeList.get(snakeList.size() - 1).x - Constants.componentLength;
 			newComp.y = snakeList.get(snakeList.size() - 1).y;
 			break;
 		}
 	
 		case 37: { //LEFT
-			newComp.x = snakeList.get(snakeList.size() - 1).x + GameScreen.componentLength;
+			newComp.x = snakeList.get(snakeList.size() - 1).x + Constants.componentLength;
 			newComp.y = snakeList.get(snakeList.size() - 1).y;
 			break;
 		}

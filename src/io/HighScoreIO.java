@@ -17,9 +17,11 @@ public class HighScoreIO {
 	private static final String directoryName = "Scores";
 	private static final String fileName = "scores.sg";
 	
-	private static Path pathToFile = Paths.get(System.getProperty("user.dir") + "/" + directoryName + "/" + fileName);
+	private static Path pathToFile = Paths.get(
+			System.getProperty("user.dir") + "/" + directoryName + "/" + fileName);
 	
 	
+
 	@SuppressWarnings("unchecked")
 	public static void readHighScores() throws ClassNotFoundException, IOException {
 		

@@ -2,6 +2,7 @@ package model;
 
 import java.awt.Rectangle;
 
+import auxiliary.Constants;
 import view.GameScreen;
 
 @SuppressWarnings("serial")
@@ -17,7 +18,7 @@ public class Food extends Rectangle {
 	private Food() {
 		
 		//fixed starting position, width and height
-		super(GameScreen.componentLength, GameScreen.componentLength);
+		super(Constants.componentLength, Constants.componentLength);
 		setDefaultPosition();
 		
 	}
@@ -44,8 +45,8 @@ public class Food extends Rectangle {
 	public void changePosition() {
 		
 		//next position of the food is randomly generated 
-		int randX = (int) ( Math.random() * ((GameScreen.windowWidth/GameScreen.componentLength) - 2) ); //returns num between 10 and window width-10
-		int randY = (int) ( Math.random() * ((GameScreen.windowHeight/GameScreen.componentLength) - 4) ); //returns num between 10 and window height-10
+		int randX = (int) ( Math.random() * ((GameScreen.windowWidth/Constants.componentLength) - 2) ); //returns num between 10 and window width-10
+		int randY = (int) ( Math.random() * ((GameScreen.windowHeight/Constants.componentLength) - 4) ); //returns num between 10 and window height-10
 		
 		super.x = randX*10;
 		super.y = randY*10;
