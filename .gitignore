@@ -22,6 +22,9 @@ tomcat
 *.sar
 *.class
 
+# Avoid ignoring the executable file
+!SnakeGame.jar
+
 # Maven 
 target/
 
