@@ -3,6 +3,8 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.text.SimpleDateFormat;
 
 import javax.swing.JFrame;
@@ -35,6 +37,13 @@ public class HighScoreScreen extends JFrame {
 		this.scorePanel.setBackground(GameScreen.backgroundColor);
 		initTable();
 		this.add(scorePanel, BorderLayout.CENTER);
+		
+		// adding window on close event
+		this.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+	            WelcomePanel.scoresShown = false;
+	        }
+		});
 		
 		this.setVisible(true);
 		
@@ -69,5 +78,6 @@ public class HighScoreScreen extends JFrame {
 		
 		this.scorePanel.add(scoreTable);
 	}
+
 
 }

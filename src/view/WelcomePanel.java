@@ -26,6 +26,7 @@ public class WelcomePanel extends JPanel {
 	private Font headerFont;
 	
 	public static boolean gameStarted = false;
+	public static boolean scoresShown = false;
 	
 	
 	public WelcomePanel() {
@@ -119,7 +120,14 @@ public class WelcomePanel extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				new HighScoreScreen();
+				if(!scoresShown) {
+					new HighScoreScreen();
+					scoresShown = true;
+				} else {
+					JOptionPane.showMessageDialog(null,
+							"The scores have already been displayed.");
+				}
+				
 			}
 			
 		});
